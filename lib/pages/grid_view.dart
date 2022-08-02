@@ -1,20 +1,21 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_my_app/pages/firstpage.dart';
-import 'package:flutter_my_app/pages/grid_view.dart';
+import 'package:flutter_my_app/pages/home_page.dart';
 import 'package:flutter_my_app/utils/container.dart';
 import 'package:http/http.dart' as http;
 
+import 'firstpage.dart';
 
-class HomePage  extends StatefulWidget {
+
+class GridViewPage  extends StatefulWidget {
   
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<GridViewPage> createState() => _GridViewPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _GridViewPageState extends State<GridViewPage> {
 
   var url="https://jsonplaceholder.typicode.com/photos";
   var data;
@@ -39,14 +40,14 @@ fetchData() async{
     return Scaffold
     (
       floatingActionButton: FloatingActionButton(onPressed: (() {
-        Navigator.pushReplacement(context, MaterialPageRoute(
-         builder: ((context) =>GridViewPage()) 
+         Navigator.pushReplacement(context, MaterialPageRoute(
+         builder: ((context) => HomePage()) 
         ));
-   } ),
-      child: Icon(Icons.grid_3x3), 
+         } ),
+      child: Icon(Icons.list), 
      ),
-     body: data!=null?ListView.builder(
-      
+     body: data!=null?GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2), 
       itemBuilder: ((context, index) {
         return ListTile(
            title: Text(data[index]["title"]),
